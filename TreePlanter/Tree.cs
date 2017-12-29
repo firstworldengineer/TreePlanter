@@ -12,7 +12,7 @@ namespace TreePlanter
         /// </summary>
         public enum SoilType
         {
-            Acidic=0,
+            Acidic = 0,
             Clay,
             Loamy,
             Moist,
@@ -22,12 +22,13 @@ namespace TreePlanter
             WellDrained,
             Wet
         }
+
         /// <summary>
         /// Sun exposure quantities as per https://www.arborday.org
         /// </summary>
         public enum SunExposure
         {
-            FullSun=0,
+            FullSun = 0,
             PartialShade,
             Shade
         }
@@ -38,7 +39,7 @@ namespace TreePlanter
         /// </summary>
         public enum HardinessZone
         {
-            Zone1=1,
+            Zone1 = 1,
             Zone2,
             Zone3,
             Zone4,
@@ -50,7 +51,7 @@ namespace TreePlanter
             Zone10,
             Zone11
         }
-        
+
         // Default constructor. If a derived class does not invoke a base-
         // class constructor explicitly, the default constructor is called
         // implicitly. 
@@ -58,6 +59,7 @@ namespace TreePlanter
         {
             this.Name = "Undefined Tree";
         }
+
         // Instance constructor with minimum definition
         public Tree(string name, int height, int roots, int canopy)
         {
@@ -66,6 +68,7 @@ namespace TreePlanter
             this.Roots = roots;
             this.Canopy = canopy;
         }
+
         // Instance constructor with full definition
         public Tree(string name, int height, int roots, int canopy, List<HardinessZone>climate, int durability,
             List<string>characteristics, List<SoilType>soilType, List<SunExposure>sunexposure, int growthrate)
@@ -81,18 +84,20 @@ namespace TreePlanter
             this.Sunexposure = sunexposure;
             this.Growthrate = growthrate;
         }
+
         //Properties.
-        protected string Name { get; set; }
-        protected int Height { get; set; }
-        protected int Roots { get; set; }
-        protected int Canopy { get; set; }
-        protected List<HardinessZone> Climate { get; set; }
-        protected int Durability { get; set; }
-        protected List<string> Characteristics { get; set; }
-        protected List<SoilType> Soiltype { get; set; }
-        protected List<SunExposure> Sunexposure { get; set; }
-        protected int Growthrate { get; set; }
-        
+        public string Name { get; set; }
+
+        public int Height { get; set; }
+        public int Roots { get; set; }
+        public int Canopy { get; set; }
+        public List<HardinessZone> Climate { get; set; }
+        public int Durability { get; set; }
+        public List<string> Characteristics { get; set; }
+        public List<SoilType> Soiltype { get; set; }
+        public List<SunExposure> Sunexposure { get; set; }
+        public int Growthrate { get; set; }
+
         /// <summary>
         /// Allows to update the defintion of an
         /// existing object. Caller defaults not needed parameters</summary>
@@ -141,7 +146,7 @@ namespace TreePlanter
             return String.Format("Name: {0}\nHeight: {1} ft.\nRoot Width: {2} ft.\nCanopy Width: {3} ft.\n" +
                                  "Durability Rating: {4}/10\nAnnual Growth Rate: {5} in.\n" +
                                  FormatCharacteristics() + FormatClimateTypes() + FormatSoilTypes()
-                                 ,Name,Height,Roots,Canopy,Durability,Growthrate);
+                , Name, Height, Roots, Canopy, Durability, Growthrate);
         }
 
         public string FormatCharacteristics()
@@ -195,6 +200,95 @@ namespace TreePlanter
                     sb.Append("-" + type.ToString() + "\n");
                 }
                 return sb.ToString();
+            }
+        }
+
+        // In ordinary use, this would most likely
+        // pull from a db using a species name as key.
+        // For simplicity, I am defining them en classe.
+        internal class RedSunset : Tree
+        {
+            // Constructors. Because neither constructor, derived nor base, calls a base-class 
+            // constructor explicitly, the default constructor in the base class
+            // is called implicitly. The base class must contain a default 
+            // constructor.
+
+            // Default constructor for the derived class.
+            public RedSunset()
+            {
+                Name = "Red Sunset";
+                Height = 50;
+                Roots = 0;
+                Canopy = 40;
+                Growthrate = 24;
+                Climate = new List<HardinessZone>()
+                {
+                    HardinessZone.Zone4,
+                    HardinessZone.Zone5,
+                    HardinessZone.Zone6,
+                    HardinessZone.Zone7,
+                    HardinessZone.Zone8
+                };
+                Characteristics = new List<string>()
+                {
+                    "Colorful",
+                    "Rounded Shape",
+                    "Small Fruits",
+                    "First to Color in Autumn",
+                    "Small Flowers in Winter",
+                    "Strong Wood",
+                    "Good Branch Structure"
+                };
+                Soiltype = new List<SoilType>()
+                {
+                    SoilType.Acidic,
+                    SoilType.Clay,
+                    SoilType.Loamy,
+                    SoilType.Moist,
+                    SoilType.Sandy,
+                    SoilType.SiltyLoam,
+                    SoilType.WellDrained,
+                    SoilType.Wet
+                };
+                Sunexposure = new List<SunExposure>()
+                {
+                    SunExposure.FullSun,
+                    SunExposure.PartialShade
+                };
+            }
+        }
+        internal class OctoberGlory : Tree
+        {
+            // Constructors. Because neither constructor, derived nor base, calls a base-class 
+            // constructor explicitly, the default constructor in the base class
+            // is called implicitly. The base class must contain a default 
+            // constructor.
+
+            // Default constructor for the derived class.
+            public OctoberGlory()
+            {
+                Name = "October Glory";
+                Height = 40;
+                Roots = 0;
+                Canopy = 35;
+                Growthrate = 24;
+                Climate = new List<HardinessZone>()
+                {
+                    HardinessZone.Zone4,HardinessZone.Zone5,HardinessZone.Zone6,
+                    HardinessZone.Zone7,HardinessZone.Zone8,HardinessZone.Zone9
+                };
+                Durability = int.MaxValue;
+                Characteristics = new List<string>() { "Colorful", "Rounded Shape", "Small Fruits" };
+                Soiltype = new List<SoilType>()
+                {
+                    SoilType.Acidic,SoilType.Clay,SoilType.Loamy,SoilType.Moist,
+                    SoilType.Rich,SoilType.Sandy,SoilType.SiltyLoam,
+                    SoilType.WellDrained,SoilType.Wet
+                };
+                Sunexposure = new List<SunExposure>()
+                {
+                    SunExposure.FullSun,SunExposure.PartialShade
+                };
             }
         }
     }

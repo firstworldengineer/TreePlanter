@@ -10,8 +10,12 @@ namespace TreePlanter
     {
         static void Main(string[] args)
         {
-            OctoberGlory og = new OctoberGlory();
-            Console.WriteLine(og.FormatDetailed());
+            Tree.OctoberGlory og = new Tree.OctoberGlory();
+            Tree.RedSunset rs = new Tree.RedSunset();
+
+            Yard yard = new Yard();
+            Console.WriteLine(yard.FindMaxTrees(og, 200));
+            //Console.WriteLine(og.FormatDetailed());
             //Console.WriteLine(og.FormatCharacteristics());
             //Console.WriteLine(og.FormatSoilTypes());
             //Console.WriteLine(og.FormatClimateTypes());
