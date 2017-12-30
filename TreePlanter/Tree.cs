@@ -7,6 +7,7 @@ namespace TreePlanter
     // WorkItem implicitly inherits from the Object class.
     public class Tree
     {
+        #region Enums
         /// <summary>
         /// Soil types as per https://www.arborday.org
         /// </summary>
@@ -51,7 +52,8 @@ namespace TreePlanter
             Zone10,
             Zone11
         }
-
+        #endregion
+        #region Tree Constructors
         // Default constructor. If a derived class does not invoke a base-
         // class constructor explicitly, the default constructor is called
         // implicitly. 
@@ -84,7 +86,8 @@ namespace TreePlanter
             this.Sunexposure = sunexposure;
             this.Growthrate = growthrate;
         }
-
+        #endregion
+        #region Tree Properties
         //Properties.
         public string Name { get; set; }
 
@@ -97,7 +100,8 @@ namespace TreePlanter
         public List<SoilType> Soiltype { get; set; }
         public List<SunExposure> Sunexposure { get; set; }
         public int Growthrate { get; set; }
-
+        #endregion
+        #region Tree Methods
         /// <summary>
         /// Allows to update the defintion of an
         /// existing object. Caller defaults not needed parameters</summary>
@@ -202,7 +206,8 @@ namespace TreePlanter
                 return sb.ToString();
             }
         }
-
+        #endregion
+        #region Tree Internal Classes
         // In ordinary use, this would most likely
         // pull from a db using a species name as key.
         // For simplicity, I am defining them en classe.
@@ -277,7 +282,6 @@ namespace TreePlanter
                     HardinessZone.Zone4,HardinessZone.Zone5,HardinessZone.Zone6,
                     HardinessZone.Zone7,HardinessZone.Zone8,HardinessZone.Zone9
                 };
-                Durability = int.MaxValue;
                 Characteristics = new List<string>() { "Colorful", "Rounded Shape", "Small Fruits" };
                 Soiltype = new List<SoilType>()
                 {
@@ -291,5 +295,97 @@ namespace TreePlanter
                 };
             }
         }
+        internal class LittleGem : Tree
+        {
+            // Constructors. Because neither constructor, derived nor base, calls a base-class 
+            // constructor explicitly, the default constructor in the base class
+            // is called implicitly. The base class must contain a default 
+            // constructor.
+
+            // Default constructor for the derived class.
+            public LittleGem()
+            {
+                Name = "Little Gem";
+                Height = 20;
+                Roots = 4;
+                Canopy = 10;
+                Growthrate = 24;
+                Climate = new List<HardinessZone>()
+                {
+                    HardinessZone.Zone7,
+                    HardinessZone.Zone8,
+                    HardinessZone.Zone9
+                };
+                Characteristics = new List<string>()
+                {
+                    "Winterproof",
+                    "Can produces blooms in winter",
+                    "Considered ornate shrub"
+                };
+                Soiltype = new List<SoilType>()
+                {
+                    SoilType.Acidic,
+                    SoilType.Clay,
+                    SoilType.Loamy,
+                    SoilType.Moist,
+                    SoilType.Rich,
+                    SoilType.Sandy,
+                    SoilType.SiltyLoam,
+                    SoilType.WellDrained,
+                    SoilType.Wet
+                };
+                Sunexposure = new List<SunExposure>()
+                {
+                    SunExposure.FullSun,
+                    SunExposure.PartialShade
+                };
+            }
+        }
+        internal class SaucerMagnolia : Tree
+            {
+                // Constructors. Because neither constructor, derived nor base, calls a base-class 
+                // constructor explicitly, the default constructor in the base class
+                // is called implicitly. The base class must contain a default 
+                // constructor.
+
+                // Default constructor for the derived class.
+                public SaucerMagnolia()
+                {
+                    Name = "Saucer Magnolia";
+                    Height = 30;
+                    Roots = 0;
+                    Canopy = 25;
+                    Growthrate = 24;
+                    Climate = new List<HardinessZone>()
+                    {
+                        HardinessZone.Zone4,
+                        HardinessZone.Zone5,
+                        HardinessZone.Zone6,
+                        HardinessZone.Zone7,
+                        HardinessZone.Zone8,
+                        HardinessZone.Zone9
+                    };
+                    Durability = int.MaxValue;
+                    Characteristics = new List<string>() {"Can be trained to grow as a shrub or single-trunk tree",
+                        "Ornate pink flowers", "Spring blooms colorful", "Will bloom in Summer",
+                        "Less colorful each bloom of season", "Rounded shape", "Thin bark easily damaged by mowers, etc." };
+                    Soiltype = new List<SoilType>()
+                    {
+                        SoilType.Acidic,
+                        SoilType.Clay,
+                        SoilType.Loamy,
+                        SoilType.Moist,
+                        SoilType.Rich,
+                        SoilType.Sandy
+                    };
+                    Sunexposure = new List<SunExposure>()
+                    {
+                        SunExposure.FullSun,
+                    };
+                }
+            }
+        
+
+        #endregion
     }
 }
