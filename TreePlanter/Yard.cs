@@ -32,11 +32,15 @@ namespace TreePlanter
             //use whichever is larger
             var minimumSpacing = Math.Max(tree.Canopy, tree.Roots);
 
+            //string of the plant locations for the log
+            StringBuilder plantLocationsString = new StringBuilder();
+
             //canopy and roots are radius values, line segment starts at 0, with (-)values
             //being the neighbors' yard. We want the very edge of the tree at maturity to
             //reach this border. Therefore, shift center of the tree away from the border by its radius
             plantLocation = minimumSpacing;
             plantLocations.Add(plantLocation);
+            plantLocationsString.Append(plantLocation.ToString() + " ft.");
 
             //now that we have our first tree in the ground, we want to plant them at the
             //minimum required distance until we are too close to [spaceInFeet]
@@ -47,7 +51,15 @@ namespace TreePlanter
                 plantLocation += (2*minimumSpacing);
                 //if our current location won't go over our space, plant it!
                 if ((plantLocation + minimumSpacing) < spaceInFeet)
+                {
                     plantLocations.Add(plantLocation);
+                    if (plantLocationsString.ToString() != String.Empty)
+                        plantLocationsString.Append(", " + plantLocation.ToString() + " ft. ");
+                    else
+                    {
+                        plantLocationsString.Append(plantLocation.ToString());
+                    }
+                }
                 //otherwise, we're done planting
 
                 //find how much gap there is between [spaceInFeet] and our final tree's outer edge
@@ -56,7 +68,7 @@ namespace TreePlanter
                     if (plantLocations.Count > 1)
                         //gap remaining is from the previous plant location to [spaceInFeet]
                         //our plant locations are tree centers, find the outer edge by adding its radius
-                        gap = spaceInFeet - ((int) plantLocations[plantLocations.Count - 1]+ minimumSpacing);
+                        gap = spaceInFeet - ((int) plantLocations[plantLocations.Count - 1] + minimumSpacing);
                     else
                         //We couldn't fit a single tree... what a shame.
                         gap = spaceInFeet;
@@ -68,6 +80,7 @@ namespace TreePlanter
             if (plantLocations.Count != 0)
             {
                 log.Append("A total of " + plantLocations.Count + " trees were planted.\n" +
+                           "Trees were planted at " + plantLocationsString.ToString() + "\n" +
                     "There is a gap of " + gap + " feet between the end of our space and the last tree.\n");
 
             }
