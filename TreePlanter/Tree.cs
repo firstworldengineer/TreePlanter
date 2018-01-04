@@ -63,17 +63,18 @@ namespace TreePlanter
         }
 
         // Instance constructor with minimum definition
-        public Tree(string name, int height, int roots, int canopy)
+        public Tree(string name, int height, int roots, int canopy, int minPlantdistance)
         {
             this.Name = name;
             this.Height = height;
             this.Roots = roots;
             this.Canopy = canopy;
+            this.MinPlantDistance = minPlantdistance;
         }
 
         // Instance constructor with full definition
         public Tree(string name, int height, int roots, int canopy, List<HardinessZone>climate, int durability,
-            List<string>characteristics, List<SoilType>soilType, List<SunExposure>sunexposure, int growthrate)
+            List<string>characteristics, List<SoilType>soilType, List<SunExposure>sunexposure, int growthrate, int minPlantDistance)
         {
             this.Name = name;
             this.Height = height;
@@ -85,12 +86,12 @@ namespace TreePlanter
             this.Soiltype = soilType;
             this.Sunexposure = sunexposure;
             this.Growthrate = growthrate;
+            this.MinPlantDistance = minPlantDistance;
         }
         #endregion
         #region Tree Properties
         //Properties.
         public string Name { get; set; }
-
         public int Height { get; set; }
         public int Roots { get; set; }
         public int Canopy { get; set; }
@@ -100,6 +101,7 @@ namespace TreePlanter
         public List<SoilType> Soiltype { get; set; }
         public List<SunExposure> Sunexposure { get; set; }
         public int Growthrate { get; set; }
+        public int MinPlantDistance { get; set; }
         #endregion
         #region Tree Methods
         /// <summary>
@@ -116,7 +118,7 @@ namespace TreePlanter
         /// <param name="sunExposure"></param>
         /// <param name="growthRate"></param>
         public void Update(string name, int height, int roots, int canopy, List<HardinessZone> climate, int durability,
-            List<string> characteristics, List<SoilType> soilType, List<SunExposure> sunExposure, int growthRate)
+            List<string> characteristics, List<SoilType> soilType, List<SunExposure> sunExposure, int growthRate, int minPlantDistance)
         {
             this.Name = name;
             this.Height = height;
@@ -128,6 +130,7 @@ namespace TreePlanter
             this.Soiltype = soilType;
             this.Sunexposure = sunExposure;
             this.Growthrate = growthRate;
+            this.MinPlantDistance = minPlantDistance;
         }
 
         // Virtual method override of the ToString method that is inherited
@@ -148,9 +151,10 @@ namespace TreePlanter
         public string FormatDetailed()
         {
             return String.Format("Name: {0}\nHeight: {1} ft.\nRoot Width: {2} ft.\nCanopy Width: {3} ft.\n" +
-                                 "Durability Rating: {4}/10\nAnnual Growth Rate: {5} in.\n" +
+                                 "Durability Rating: {4}/10\nAnnual Growth Rate: {5} in.\n" + 
+                                 "Must be planted a minimum distance of {6} feet away from other structures." +
                                  FormatCharacteristics() + FormatClimateTypes() + FormatSoilTypes()
-                , Name, Height, Roots, Canopy, Durability, Growthrate);
+                , Name, Height, Roots, Canopy, Durability, Growthrate, MinPlantDistance);
         }
 
         public string FormatCharacteristics()
