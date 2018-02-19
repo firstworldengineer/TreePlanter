@@ -52,6 +52,30 @@ namespace TreePlanter
             Zone10,
             Zone11
         }
+
+        public struct MinimumDistance
+        {
+            /// <summary>
+            /// Minimum distances tree should be planted away from objects.
+            /// </summary>
+            /// <param name="fromPlants">from trees, bushes, foliage</param>
+            /// <param name="fromStructures">from buildings, septic, swimming pools</param>
+            /// <param name="fromWalks">from sidewalks, underground piping, wiring</param>
+            /// <param name="fromPower">from power lines</param>
+            public MinimumDistance(int fromPlants, int fromStructures, int fromWalks, int fromPower)
+            {
+                FromPlants = fromPlants;
+                FromStructures = fromStructures;
+                FromWalks = fromWalks;
+                FromPower = fromPower;
+            }
+
+            public int FromPlants        { get; private set; }
+            public int FromStructures   { get; private set; }
+            public int FromWalks        { get; private set; }
+            public int FromPower        { get; private set; }
+        }
+
         #endregion
         #region Tree Constructors
         // Default constructor. If a derived class does not invoke a base-
@@ -63,18 +87,19 @@ namespace TreePlanter
         }
 
         // Instance constructor with minimum definition
-        public Tree(string name, int height, int roots, int canopy, int minPlantdistance)
+        public Tree(string name, int height, int roots, int canopy)
         {
             this.Name = name;
             this.Height = height;
             this.Roots = roots;
             this.Canopy = canopy;
-            this.MinPlantDistance = minPlantdistance;
+            this.MinPlantDistance = new MinimumDistance((canopy/2), (canopy / 2), (canopy / 2), (canopy / 2));
+
         }
 
         // Instance constructor with full definition
         public Tree(string name, int height, int roots, int canopy, List<HardinessZone>climate, int durability,
-            List<string>characteristics, List<SoilType>soilType, List<SunExposure>sunexposure, int growthrate, int minPlantDistance)
+            List<string>characteristics, List<SoilType>soilType, List<SunExposure>sunexposure, int growthrate, MinimumDistance minDistance)
         {
             this.Name = name;
             this.Height = height;
@@ -86,7 +111,7 @@ namespace TreePlanter
             this.Soiltype = soilType;
             this.Sunexposure = sunexposure;
             this.Growthrate = growthrate;
-            this.MinPlantDistance = minPlantDistance;
+            this.MinPlantDistance = minDistance;
         }
         #endregion
         #region Tree Properties
@@ -101,7 +126,7 @@ namespace TreePlanter
         public List<SoilType> Soiltype { get; set; }
         public List<SunExposure> Sunexposure { get; set; }
         public int Growthrate { get; set; }
-        public int MinPlantDistance { get; set; }
+        public MinimumDistance MinPlantDistance { get; set; }
         #endregion
         #region Tree Methods
         /// <summary>
@@ -118,7 +143,7 @@ namespace TreePlanter
         /// <param name="sunExposure"></param>
         /// <param name="growthRate"></param>
         public void Update(string name, int height, int roots, int canopy, List<HardinessZone> climate, int durability,
-            List<string> characteristics, List<SoilType> soilType, List<SunExposure> sunExposure, int growthRate, int minPlantDistance)
+            List<string> characteristics, List<SoilType> soilType, List<SunExposure> sunExposure, int growthRate, MinimumDistance minPlantDistance)
         {
             this.Name = name;
             this.Height = height;
@@ -230,6 +255,7 @@ namespace TreePlanter
                 Roots = 0;
                 Canopy = 40;
                 Growthrate = 24;
+                MinPlantDistance = new MinimumDistance(20,15,8,30);
                 Climate = new List<HardinessZone>()
                 {
                     HardinessZone.Zone4,
@@ -281,6 +307,7 @@ namespace TreePlanter
                 Roots = 0;
                 Canopy = 35;
                 Growthrate = 24;
+                MinPlantDistance = new MinimumDistance(20, 15, 8, 30);
                 Climate = new List<HardinessZone>()
                 {
                     HardinessZone.Zone4,HardinessZone.Zone5,HardinessZone.Zone6,
@@ -314,6 +341,7 @@ namespace TreePlanter
                 Roots = 4;
                 Canopy = 10;
                 Growthrate = 24;
+                MinPlantDistance = new MinimumDistance(8,4,4,15);
                 Climate = new List<HardinessZone>()
                 {
                     HardinessZone.Zone7,
@@ -360,7 +388,9 @@ namespace TreePlanter
                     Roots = 0;
                     Canopy = 25;
                     Growthrate = 24;
+                    MinPlantDistance = new MinimumDistance(8,4,4,15);
                     Climate = new List<HardinessZone>()
+
                     {
                         HardinessZone.Zone4,
                         HardinessZone.Zone5,
